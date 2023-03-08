@@ -11,3 +11,5 @@
 	* `git commit -m 'my best commit'`
 5. Обновите репозиторий в вашем GitHub-аккаунте:
 	* `git push origin main`
+6. cr.yandex/crpjseu49c25iboj239p/cdm_service - CDM
+7. cr.yandex/crpjseu49c25iboj239p/dds_service - DDS
