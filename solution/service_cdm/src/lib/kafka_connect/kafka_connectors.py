@@ -53,12 +53,12 @@ class KafkaConsumer:
             'client.id': 'someclientkey'
         }
 
-        self.topic = topic
+
         self.c = Consumer(params)
-        self.c.subscribe([topic])
+        self.c.subscribe(['dds-service-orders'])
 
     def consume(self, timeout: float = 3.0) -> Optional[Dict]:
-        msg = self.c.poll(timeout=timeout)
+        msg = self.c.poll(timeout=3.0)
         if not msg:
             return None
         if msg.error():

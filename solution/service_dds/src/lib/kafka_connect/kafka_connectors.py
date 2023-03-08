@@ -20,7 +20,7 @@ class KafkaProducer:
             'error_cb': error_callback,
         }
 
-        self.topic = topic
+        self.topic = 'dds-service-orders'
         self.p = Producer(params)
 
     def produce(self, payload: Dict) -> None:
@@ -45,7 +45,7 @@ class KafkaConsumer:
             'sasl.mechanism': 'SCRAM-SHA-512',
             'sasl.username': user,
             'sasl.password': password,
-            'group.id': group,  # '',
+            'group.id': group,
             'auto.offset.reset': 'earliest',
             'enable.auto.commit': False,
             'error_cb': error_callback,
@@ -53,15 +53,16 @@ class KafkaConsumer:
             'client.id': 'someclientkey'
         }
 
-        self.topic = topic
+    
         self.c = Consumer(params)
-        self.c.subscribe([topic])
+        self.c.subscribe(['stg-service-orders'])
 
     def consume(self, timeout: float = 3.0) -> Optional[Dict]:
-        msg = self.c.poll(timeout=timeout)
+        msg = self.c.poll(timeout=3.0)
         if not msg:
             return None
         if msg.error():
             raise Exception(msg.error())
         val = msg.value().decode()
         return json.loads(val)
+
