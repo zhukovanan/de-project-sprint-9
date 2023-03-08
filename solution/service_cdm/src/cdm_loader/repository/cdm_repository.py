@@ -27,8 +27,8 @@ class CdmRepository:
                         ,%(order_cnt)s
                      FROM dds.h_user,dds.h_category
                      WHERE
-                        h_user.user_id  = %(user_id)s
-                        AND h_category.category_name  = %(category_name)s
+                        h_user.user_id  = CAST(%(user_id)s AS VARCHAR)
+                        AND h_category.category_name  = CAST (%(category_name)s AS VARCHAR)
                      ON CONFLICT (user_id,category_id) DO UPDATE
                     SET order_cnt = Excluded.order_cnt;
                     """,
@@ -59,8 +59,8 @@ class CdmRepository:
                         ,%(order_cnt)s
                      FROM dds.h_user,dds.s_product_names
                      WHERE
-                        h_user.user_id  = %(user_id)s
-                        AND s_product_names.name = %(product_name)s
+                        h_user.user_id  = CAST( %(user_id)s AS VARCHAR )
+                        AND s_product_names.name = CAST(%(product_name)s AS VARCHAR)
                     
                     ON CONFLICT (user_id,product_id) DO UPDATE
                     SET order_cnt = Excluded.order_cnt;
@@ -71,4 +71,5 @@ class CdmRepository:
                         'order_cnt': order_cnt
                     }
                 )
+
 
